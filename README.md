@@ -49,8 +49,32 @@ Connect to the running database using:
 
 ```psql "host=localhost port=5433  user=postgres password=postgres sslcert=<path to>/postgres.crt sslkey=<path to>/postgres.key"```
 
+To check you have an encrypted connection, you can do the following:
+
+1. When you initiate the connection with `psql` you will likely see something like
+
+```
+SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+```
+
+2. Check `pg_stat_ssl`:
+
+```
+select * from pg_stat_ssl;
+```
+
+which will confirm that the connection is encrpyted:
+
+```
+id | ssl | version |         cipher         | bits |  client_dn   |              client_serial              | issuer_dn
+-----+-----+---------+------------------------+------+--------------+-----------------------------------------+-----------
+ 115 | t   | TLSv1.3 | TLS_AES_256_GCM_SHA384 |  256 | /CN=postgres | 169828633045461505693128272242085742747 | /CN=myCA
+ ```
+
 
 ### Credits
+
+This was one of a few helpful starting points for the above:
 
  https://dev.to/danvixent/how-to-setup-postgresql-with-ssl-inside-a-docker-container-5f3
 
