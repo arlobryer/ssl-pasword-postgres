@@ -1,0 +1,12 @@
+services:
+  postgres:
+    build:
+      context: ./docker
+    ports:
+    # note - 5433 used as the host port
+    - "5433:5432"
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    command: postgres -c config_file=/config/postgresql.conf

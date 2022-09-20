@@ -1,0 +1,7 @@
+.DS_Store
+*.crt
+*.key
+*.crl
+*.csr
+# let's also ignore the default output directory of certstrap
+docker/certs/out/
